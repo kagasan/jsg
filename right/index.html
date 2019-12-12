@@ -8,6 +8,8 @@ var W = 4;
 var H = 4;
 var clear_flg;
 var cheat_flg = 0;
+var cheat_cnt = 0;
+
 
 function tap(y, x){
     mp[y][x] ^= 1;
@@ -38,6 +40,7 @@ function reset(){
         ans[y] = new Array(W + 2).fill(0);
     }
     clear_flg = 0;
+    cheat_cnt = 0;
     for(var i = 0; i < 3 * W; i++){
         var y = randRange(1, H);
         var x = randRange(1, W);
@@ -59,6 +62,14 @@ function click(x, y){
     y = 1 + parseInt(y / L);
     tap(y, x);
     ans[y][x] ^= 1;
+    if(y == 1 && x == 1){
+        cheat_cnt++;
+        if(cheat_cnt == 5){
+            cheat_flg ^= 1;
+            cheat_cnt = 0;
+        }
+    }
+    else cheat_cnt = 0;
 }
 
 function loop(){
