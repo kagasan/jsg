@@ -1,0 +1,85 @@
+<script src = "./../jsg.js"></script>
+<script>
+const randRange = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+var mp;
+var ans;
+var L = 50;
+var W = 4;
+var H = 4;
+var clear_flg;
+var cheat_flg = 0;
+
+function tap(y, x){
+    mp[y][x] ^= 1;
+    mp[y - 1][x] ^= 1;
+    mp[y + 1][x] ^= 1;
+    mp[y][x - 1] ^= 1;
+    mp[y][x + 1] ^= 1;
+}
+
+function check(){
+    for(var i = 1; i <= H; i++){
+        for(var j = 1; j <= W; j++){
+            if(mp[i][j] == 0)return 0;
+        }
+    }
+    clear_flg = 1;
+    return 1;
+}
+
+function reset(){
+    changeSize(W * L, H * L);
+    mp = new Array(H + 2);
+    for(let y = 0; y < H + 2; y++) {
+        mp[y] = new Array(W + 2).fill(1);
+    }
+    ans = new Array(H + 2);
+    for(let y = 0; y < H + 2; y++) {
+        ans[y] = new Array(W + 2).fill(0);
+    }
+    clear_flg = 0;
+    for(var i = 0; i < 3 * W; i++){
+        var y = randRange(1, H);
+        var x = randRange(1, W);
+        tap(y, x);
+        ans[y][x] ^= 1;
+    }
+}
+
+function init(){
+    document.addEventListener('keydown', (event) => {
+        var keyname = event.key;
+        if (keyname == " ")cheat_flg ^= 1;
+    });
+    reset();
+}
+
+function click(x, y){
+    x = 1 + parseInt(x / L);
+    y = 1 + parseInt(y / L);
+    tap(y, x);
+    ans[y][x] ^= 1;
+}
+
+function loop(){
+    if(clear_flg){
+        alert("clear!");
+        W++;
+        H++;
+        reset();
+    }
+    drawBox(0, 0, canvas.width, canvas.height, rgb(255, 255, 255), -1);
+    for(var i = 1; i <= H; i++){
+        for(var j = 1; j <= W; j++){
+            var y = (i - 1) * L + L / 2;
+            var x = (j - 1) * L + L / 2;
+            var color = rgb(80, 80, 80);
+            if(mp[i][j])color = rgb(230, 150, 150);
+
+            if(cheat_flg && ans[i][j])drawCircle(x, y, 2 + L / 2, rgb(255, 0, 0), -1);
+            drawCircle(x, y, L / 2, color, -1);
+        }
+    }
+    check();
+}
+</script>
