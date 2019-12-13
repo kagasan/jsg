@@ -25,7 +25,7 @@ https://kagasan.github.io/jsg/sample/
 <script src = "./../jsg.js"></script>
 <script>
 var txt_x, txt_y;
-
+var pts = [[140, 20], [140, 60], [180, 60], [180, 20], [160, 40]];
 function init(){
     changeTitle("sample");
     changeSize(200, 200);
@@ -56,6 +56,8 @@ function loop(){
     drawString(txt_x, txt_y, "click?");
     drawString(10, 160, " w ");
     drawString(10, 180, "asd");
+    
+    drawPolygon(pts, rgb(200, 100, 100), -1);
 }
 </script>
 ```
