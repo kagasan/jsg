@@ -50,10 +50,6 @@ function reset(){
 }
 
 function init(){
-    document.addEventListener('keydown', (event) => {
-        var keyname = event.key;
-        if (keyname == " ")cheat_flg ^= 1;
-    });
     reset();
 }
 
@@ -70,6 +66,10 @@ function click(x, y){
         }
     }
     else cheat_cnt = 0;
+}
+
+function keydown(key){
+    if(key == " ")cheat_flg ^= 1;
 }
 
 function loop(){

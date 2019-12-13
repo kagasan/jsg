@@ -8,6 +8,10 @@ window.onload = function(){
     canvas.width = 640;
     document.title = "game";
     init();
+    document.addEventListener('keydown', (event) => {
+        var keyname = event.key;
+        keydown(keyname);
+    });
     canvas.addEventListener("click", function(e){
         var rect = e.target.getBoundingClientRect();
         var x = e.clientX - rect.left;

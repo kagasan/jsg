@@ -6,6 +6,7 @@ https://kagasan.github.io/jsg/
 ```js
 function init();
 function click(x, y);
+function keydown(key);
 function loop();
 ```
 提供メソッド
@@ -35,6 +36,13 @@ function click(x, y){
     txt_y = y;
 }
 
+function keydown(key){
+    if(key == "a")txt_x -= 10;
+    if(key == "s" && txt_y < 190)txt_y += 10;
+    if(key == "w" && txt_y > 10)txt_y -= 10;
+    if(key == "d")txt_x += 10;
+}
+
 function loop(){
     drawBox(0, 0, canvas.width, canvas.height, rgb(200, 200, 200), -1);
     txt_x--;
@@ -43,7 +51,9 @@ function loop(){
     drawCircle(10, 10, 5, rgb(0, 0, 200), 2);
     drawLine(90, 10, 100, 20, rgb(0, 100, 100), 2);
 
-    drawString(txt_x, txt_y, "www");
+    drawString(txt_x, txt_y, "click?");
+    drawString(10, 160, " w ");
+    drawString(10, 180, "asd");
 }
 </script>
 ```
