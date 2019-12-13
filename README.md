@@ -19,6 +19,7 @@ function drawLine(x1, y1, x2, y2, color = "#000000", thickness = 1);
 function drawString(x, y, text, color = "#000000", size = 16, font = "メイリオ");
 ```
 実装例
+https://kagasan.github.io/jsg/sample/
 ```html
 <script src = "./../jsg.js"></script>
 <script>
