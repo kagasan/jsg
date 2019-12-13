@@ -15,6 +15,7 @@ function changeSize(width, height);
 function rgb(r = 255, g = 0, b = 0);
 function drawBox(x1, y1, x2, y2, color, thickness = 1);
 function drawCircle(x, y, r, color, thickness = 1);
+function drawPolygon(pts, color = "#000000", thickness = 1);
 function drawLine(x1, y1, x2, y2, color = "#000000", thickness = 1);
 function drawString(x, y, text, color = "#000000", size = 16, font = "メイリオ");
 ```

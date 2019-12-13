@@ -64,6 +64,30 @@ function drawCircle(x, y, r, color, thickness = 1){
     }
 }
 
+function drawPolygon(pts, color = "#000000", thickness = 1){
+    if(thickness < 0){
+        this.ctx.fillStyle = color;
+        this.ctx.beginPath();
+        this.ctx.moveTo(pts[0][0], pts[0][1]);
+        for(var i = 1; i < pts.length; i++){
+            this.ctx.lineTo(pts[i][0], pts[i][1]);
+        }
+        this.ctx.lineTo(pts[0][0], pts[0][1]);
+        this.ctx.fill();
+    }
+    else{
+        this.ctx.strokeStyle = color;
+        this.ctx.lineWidth = thickness;
+        this.ctx.beginPath();
+        this.ctx.moveTo(pts[0][0], pts[0][1]);
+        for(var i = 1; i < pts.length; i++){
+            this.ctx.lineTo(pts[i][0], pts[i][1]);
+        }
+        this.ctx.lineTo(pts[0][0], pts[0][1]);
+        this.ctx.stroke();
+    }
+}
+
 function drawLine(x1, y1, x2, y2, color = "#000000", thickness = 1){
     ctx.lineWidth = thickness;
     ctx.strokeStyle = color;
