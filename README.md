@@ -12,6 +12,7 @@ function loop();
 提供メソッド
 ```js
 function changeSize(width, height);
+function changeTitle(title);
 function rgb(r = 255, g = 0, b = 0);
 function drawBox(x1, y1, x2, y2, color, thickness = 1);
 function drawCircle(x, y, r, color, thickness = 1);
