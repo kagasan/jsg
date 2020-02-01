@@ -6,17 +6,20 @@ let by = 240;
 let score = 0;
 let max_score = 0;
 let pipes = [];
-let N = 50;
+let N = 100;
 function reset(){
     step = 0;
     score = 0;
     by = 20;
     pipes = [];
     for(let i = 0; i < N; i++){
-        let h = 300 - i * 10;
-        if(h < 40)h = 40;
+        let h = 200 - i * 8;
+        if(h < 60)h = 60;
         let y = 20 + randRange(0, 440 - h);
-        
+        if(i == 0){
+            y = 100;
+            h = 200;
+        }
         pipes.push({
             x : 400 + i * 150,
             y1 : y,
@@ -30,7 +33,7 @@ function init(){
     reset();
 }
 
-let autoplay_flg = 0;
+let autoplay_flg = 5;
 function click(x, y){
     if(autoplay_flg < 5){
         if(x < 50 && y < 50)autoplay_flg += 1;
@@ -48,14 +51,16 @@ function loop(){
     drawBox(0, 0, canvas.width, canvas.height, rgb(255, 255, 255), -1);
     by += 2;
     if(autoplay_flg == 5){
-        let y = 9999;
+        let y = 9999, x = 0;
         for(let i = 0; i < N; i++){
             if(pipes[i].x > 305){
                 y = pipes[i].y2;
+                x = pipes[i].x - 320;
                 break;
             }
         }
-        if(y < by + 20)click(0, 0);
+        if(x < 0)x = 0;
+        if(y - x < by + 10)click(0, 0);
     }
     step++;
     let dead = false;
