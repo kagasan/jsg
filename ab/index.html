@@ -30,18 +30,33 @@ function init(){
     reset();
 }
 
+let autoplay_flg = 0;
 function click(x, y){
-    by -= 50;
+    if(autoplay_flg < 5){
+        if(x < 50 && y < 50)autoplay_flg += 1;
+        else autoplay_flg = 0;
+    }
+    by -= 30;
     if(by < 0)by = 0;
 }
 
 function keydown(key){
-    if(key == " ")click(0, 0);
+    if(key == " ")click(100, 100);
 }
 
 function loop(){
     drawBox(0, 0, canvas.width, canvas.height, rgb(255, 255, 255), -1);
     by += 2;
+    if(autoplay_flg == 5){
+        let y = 9999;
+        for(let i = 0; i < N; i++){
+            if(pipes[i].x > 305){
+                y = pipes[i].y2;
+                break;
+            }
+        }
+        if(y < by + 20)click(0, 0);
+    }
     step++;
     let dead = false;
     if(by > 480)dead = true;
@@ -64,6 +79,7 @@ function loop(){
     drawCircle(320, by, 10, rgb(), -1);
     drawString(0, 20, "score : " + score);
     drawString(0, 50, "max score : " + max_score);
+    if(autoplay_flg == 5)drawString(0, 80, "auto play", rgb());
     drawBox(0, 460, 640, 480, rgb(), -1);
 }
 </script>
