@@ -4,12 +4,29 @@ const randRange = (min, max) => Math.floor(Math.random() * (max - min + 1) + min
 
 let by = 240;
 let score = 0;
-
+let max_score = 0;
+let pipes = [];
+let N = 50;
 function reset(){
-
+    step = 0;
+    score = 0;
+    by = 20;
+    pipes = [];
+    for(let i = 0; i < N; i++){
+        let h = 300 - i * 10;
+        if(h < 40)h = 40;
+        let y = 20 + randRange(0, 440 - h);
+        
+        pipes.push({
+            x : 400 + i * 150,
+            y1 : y,
+            y2 : y + h
+        });
+    }
 }
 
 function init(){
+    max_score = 0;
     reset();
 }
 
@@ -25,9 +42,28 @@ function keydown(key){
 function loop(){
     drawBox(0, 0, canvas.width, canvas.height, rgb(255, 255, 255), -1);
     by += 2;
-    if(by > 480)by = 0;
+    step++;
+    let dead = false;
+    if(by > 480)dead = true;
+    for(let i = 0; i < N; i++){
+        pipes[i].x--;
+        if(310 < pipes[i].x && pipes[i].x < 330){
+            if(by < pipes[i].y1 + 10)dead = true;
+            if(by > pipes[i].y2 - 10)dead = true;
+        }
+        if(pipes[i].x < 330 && score <= i){
+            score = i + 1;
+            if(max_score < score)max_score = score;
+        }
+    }
+    if(dead)reset();
+    for(let i = 0; i < N; i++){
+        drawLine(pipes[i].x, -20, pipes[i].x, pipes[i].y1, rgb(0, 255, 0), 20);
+        drawLine(pipes[i].x, pipes[i].y2, pipes[i].x, 500, rgb(0, 255, 0), 20);
+    }
     drawCircle(320, by, 10, rgb(), -1);
     drawString(0, 20, "score : " + score);
+    drawString(0, 50, "max score : " + max_score);
     drawBox(0, 460, 640, 480, rgb(), -1);
 }
 </script>
