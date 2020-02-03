@@ -1,0 +1,38 @@
+<script src = "./../jsg.js"></script>
+<script>
+const randRange = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
+let ball_x = 320;
+let ball_y = 240;
+
+let score = 0;
+let max_score = 0;
+let b_y = 240;
+
+function reset(){
+
+}
+
+function init(){
+    reset();
+}
+
+function click(x, y){
+    if(y < 240)b_y -= 10;
+    else b_y += 10;
+    if(b_y < 0)b_y = 0;
+    if(b_y > 480)b_y = 480;
+}
+
+function keydown(key){
+    if(key == "w")click(0, 0);
+    if(key == "s")click(0, 400);
+}
+
+function loop(){
+    drawBox(0, 0, canvas.width, canvas.height, rgb(128, 128, 128), -1);
+    drawBox(30, b_y - 50, 60, b_y + 50, rgb(100, 255, 100), -1);
+    
+    drawCircle(ball_x, ball_y, 10, rgb(100, 255, 100), -1);   
+}
+</script>
