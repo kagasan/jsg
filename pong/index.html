@@ -27,6 +27,8 @@ function click(x, y){
 function keydown(key){
     if(key == "w")click(0, 0);
     if(key == "s")click(0, 400);
+    if(key == "a")ball_x -= 10;
+    if(key == "d")ball_x += 10;
 }
 
 function loop(){
